@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Chat } from './pages/Chat'
+import { Login } from "./pages/Login";
+import { SignUp } from "./pages/SignUp";
+import { firebase } from "./services/firebase";
 
-function App() {
+export default function App() {
+  const [currentUser, setCurrentUser] = useState();
+  const [authLoading, setAuthLoading] = useState(true);
+
+  useEffect(() => {
+    const cleanListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        
+        setCurrentUser(user)
+        
+      } else {
+
+        setCurrentUser(null)
+      }
+
+      setAuthLoading(false)
+    });
+
+    return () => {
+      cleanListener()
+    }
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+        {!authLoading && <Switch>
+          <Route exact path="/">
+            <Chat currentUser={currentUser}/>
+          </Route>
+          <Route exact path="/login">
+            <Login currentUser={currentUser}/>
+          </Route>
+          <Route exact path="/signup">
+            <SignUp currentUser={currentUser}/>
+          </Route>
+        </Switch>}
+    </Router>
   );
 }
-
-export default App;
