@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { db, firebase } from "../services/firebase";
 
 const UsersListWrapper = styled.div `
-    border: 1px solid blue;
+    border-right: 1px solid orange;
     padding: 0 16px;
 `
 
@@ -16,9 +16,12 @@ const UsersHeader = styled.div `
 const LogoutButton = styled.button `
     display: flex;
     align-items: center;
-    height: 20px;
+    height: 30px;
+    background-color: #D0FADB;
     border: 0;
+    border-radius: 8px;
     cursor: pointer;
+    color: brown;
 `
 
 function UsersList({ setSelectedUser, currentUser, currentUserData }) {

@@ -1,24 +1,23 @@
 import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { firebase, db } from "../services/firebase";
+import clipIcon from "../assets/clip-icon.svg"
 
 const ChatWrapper = styled.div `
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
 `
 
 const Header = styled.div `
     height: 50px;
-    border: 1px solid green;
+    border-bottom: 1px solid orange;
     display: flex;
     align-items: center;
     justify-content: center;
 `
 
-const Messages = styled.form `
+const Messages = styled.div `
     flex-grow: 1;
-    border: 1px solid pink;
     padding-left: 16px;
     display: flex;
     flex-direction: column-reverse;
@@ -26,18 +25,56 @@ const Messages = styled.form `
 
 const MessageInput = styled.form `
     height: 50px;
-    border: 1px solid orange;
+    border-top: 1px solid orange;
     display: flex;
     padding: 8px;
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    align-items: stretch;
+    width: 999px;
 
     input {
         flex-grow: 1;
         font-size: 18px;
+        border: 1px solid orange;
+        border-radius: 8px;
+    }
+
+    button {
+        background-color: #D0FADB;
+        cursor: pointer;
+        border-radius: 8px;
+        margin-right: 4px;
+        color: brown;
+        border: 0;
+        margin-left: 4px;
     }
 `
 
 const MessageImage = styled.img `
     max-width: 300px;
+`
+
+const FileInput = styled.input `
+    display: none;
+`
+
+const InputLabel = styled.label `
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    background-color: #D0FADB;
+    cursor: pointer;
+    gap: 5px;
+    border-radius: 8px;
+    margin-right: 4px;
+    color: brown;
+
+    img {
+        max-width: 30px;
+    }
 `
 
 function mountChatId(id1, id2) {
@@ -127,9 +164,12 @@ function ChatContainer({ selectedUser, currentUserId, currentUserName }) {
                 }
             </Messages>
                 <MessageInput onSubmit={sendMessage}>
-                    <input 
+                    <InputLabel for="arquivo"><img src={clipIcon} alt={"Anexar"}/>Anexar</InputLabel>
+                    <FileInput 
                         type={"file"}
                         ref={fileInputRef}
+                        name="arquivo"
+                        id="arquivo"
                     />
                     <input  
                         placeholder={"Digite a sua mensagem"}
