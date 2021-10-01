@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
-import ChatContainer from "../components/ChatContainer";
-import UsersList from "../components/UsersList";
+import ChatContainer from "../components/ChatContainer/ChatContainer";
+import UsersList from "../components/UsersList/UsersList";
 import styled from "styled-components/"
 import { db } from "../services/firebase"
 

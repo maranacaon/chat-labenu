@@ -1,32 +1,8 @@
-import styled from "styled-components";
-import { FormContainer } from "../components/FormContainer";
+import { FormContainer, GoogleButton, Button, MainContainer, Title } from "../components/FormContainer";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
-import firebase from "firebase/app";
-
-const GoogleButton = styled.button `
-    height: 50px;
-    border-radius: 8px;
-    background: #ea4335;
-    color: #FFF; 
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    cursor: pointer;
-    border: 0;
-
-    transition: filter 0.2s;
-
-    img {
-        margin-right: 8px;
-    }
-
-    &:hover {
-        filter:brightness(0.9);
-    }
-`
+import firebase from "firebase/compat/app";
+import googleIconImg from "../assets/google-icon.svg"
 
 export function Login({ currentUser }) {
     const [email, setEmail] = useState('');
@@ -77,26 +53,31 @@ export function Login({ currentUser }) {
     }
 
     return (
-        <FormContainer>
-           <h1>Login</h1> 
-           <form onSubmit={handleLogin}>
-                <input 
-                    value={email} 
-                    type={"email"} 
-                    placeholder={"Email"}
-                    onChange={e => setEmail(e.target.value)}
-                />
-                <input 
-                    value={password} 
-                    type={"password"} 
-                    placeholder={"Senha"}
-                    onChange={e => setPassword(e.target.value)}
-                />
-                <button>Login</button>
-                <button onClick={goToSignUp}>Não tem conta? Cadastre-se</button>
-               <GoogleButton onClick={handleGoogleLogin} type="button">Login com o Google</GoogleButton>
-           </form>
-        </FormContainer>
+        <MainContainer>
+            <FormContainer>
+            <Title>Login</Title> 
+            <form onSubmit={handleLogin}>
+                    <input
+                        value={email} 
+                        type={"email"} 
+                        placeholder={"Email"}
+                        onChange={e => setEmail(e.target.value)}
+                    />
+                    <input 
+                        value={password} 
+                        type={"password"} 
+                        placeholder={"Senha"}
+                        onChange={e => setPassword(e.target.value)}
+                    />
+                    <Button>Login</Button>
+                    <Button onClick={goToSignUp}>Não tem conta? Cadastre-se</Button>
+                    <GoogleButton onClick={handleGoogleLogin} type="button">
+                        <img src={googleIconImg} alt="Google Login"/>
+                        Login com o Google
+                    </GoogleButton>
+            </form>
+            </FormContainer>
+        </MainContainer>
     )
 }
 

@@ -1,6 +1,6 @@
-import { FormContainer } from "../components/FormContainer";
+import { FormContainer, Button, MainContainer, Title } from "../components/FormContainer";
 import { useHistory } from "react-router-dom";
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import { useState, useEffect } from "react";
 
 export function SignUp({ currentUser }) {
@@ -38,31 +38,33 @@ export function SignUp({ currentUser }) {
     }, [currentUser, history])
 
     return (
-        <FormContainer>
-            <h1>Sign Up</h1>
-            <form onSubmit={handleSignUp}>
-                <input 
-                    type={"text"} 
-                    placeholder={"Seu nome"}
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                />
-                <input 
-                    type={"email"} 
-                    placeholder={"Email"}
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                />
-                <input 
-                    type={"password"} 
-                    placeholder={"Senha"}
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
-               <button>Cadastro</button>
-               <button onClick={goToLogin}>Já tem conta? Faça o login</button>
-           </form>
-        </FormContainer>
+        <MainContainer>
+            <FormContainer>
+                <Title>Sign Up</Title>
+                <form onSubmit={handleSignUp}>
+                    <input 
+                        type={"text"} 
+                        placeholder={"Seu nome"}
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                    />
+                    <input 
+                        type={"email"} 
+                        placeholder={"Email"}
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                    />
+                    <input 
+                        type={"password"} 
+                        placeholder={"Senha"}
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                    />
+                <Button>Cadastro</Button>
+                <Button onClick={goToLogin}>Já tem conta? Faça o login</Button>
+            </form>
+            </FormContainer>
+        </MainContainer>
     )
 }
 
